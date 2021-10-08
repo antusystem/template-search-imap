@@ -10,14 +10,15 @@ Search Methods with IMAP
     ...             These links were a lot helful: https://tools.ietf.org/html/rfc3501#section-6.4.4 , https://gist.github.com/martinrusev/6121028 , 
     ...             https://robocorp.com/docs/development-guide/email/sending-emails-with-gmail-smtp#listing-email-messages-by-criterion
 
-    # Access your email with your credential that are in the vault.json specified in the devdata/env.json file
+    # Access your email with your credential that are in the vault.json specified in the devdata/env.json file, 
+    # or just hard-code the mail username and its password
     ${secret}=    Get Secret    emailCredentials
     Authorize    account=${secret}[username]   password=${secret}[password]
     
     
     #First of all, there are search keys that do not requiere any argument, those I call them flag search keys (DELETED, ALL, ANSWERED, and others)
-    #In the documentation in here: https://tools.ietf.org/html/rfc3501#page-81 , you can check the search, search-key, and sequence-set to clear some doubt for some doubts 
-    #that will come in the use of some search key. Either way I will copy them here:
+    #In the documentation in here: https://tools.ietf.org/html/rfc3501#page-81 , you can check the search, search-key, and sequence-set to clear some doubt 
+    # for some doubts that will come in the use of some search key. Either way I will copy them here:
     
     #search          = "SEARCH" [SP "CHARSET" SP astring] 1*(SP search-key)
     #                ; CHARSET argument to MUST be registered with IANA
@@ -53,7 +54,13 @@ Search Methods with IMAP
     #                ; overlap coalesced to be 4,5,6,7,8,9,10.
     
     # With that and the information  in the first link in the documentation section you should understand everything
-    # Some search keys are well explained in the second link of the documentation section of this keyword, I will complement it with the ones that need a little more.
+    # Some search keys are well explained in the second link of the documentation section of this keyword, I will complement 
+    # it with the ones that need a little more.
+    
+    # To search by Mail-Id or message number (search in rfc3501 for <sequence set> in SEARCH Command or
+    # Message Sequence Number Message Attribute to learn more)
+    @{emails}  List Messages  123
+    Log    ${emails}
     
     # Flag
     @{emails}  List Messages  ALL
@@ -181,9 +188,14 @@ Search Methods with IMAP
     # Note: depending of your computer, your mail, and your search conditions it might take a while. Also remember that the mails found by every search
     # might be a lot, so it could not open if you use Robocorp Lab, but if you Download the Log you can see it without trouble in your browser.
     
-    # Note 2: The idea of this is to search anything, if it does not find something it will return an empty list, the important thing is that it does not fail in the process
+    # Note 2: The idea of this is to search anything, if it does not find something it will return an empty list, the important thing is that it does not 
+    # fail in the process
     
-    # Note 3: To access the metadata in the mails you can do this:
+    # Note 3: All the search criteria disregarding time and timezone, so you can only search by date. If you read the documentation you see that they only support
+    # <date> format not <date-time> format. The <date> format is (basically) "19-Apr-2021". The <date-time> format is (basically) "19-Apr-2021 23:59:59 +0400". 
+    # You can read the link above of the rfc3501 document to learn more serching for date, date-time, and zone.
+    
+    # Note 4: To access the metadata in the mails you can do this:
 
     @{emails}  List Messages  SUBJECT "Datos"
     FOR  ${email}  IN  @{EMAILS}
