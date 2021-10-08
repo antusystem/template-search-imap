@@ -7,7 +7,7 @@ Library         RPA.Robocloud.Secrets
 *** Keyword *** 
 Search Methods with IMAP
     [Documentation]    This Keywords shows how to use all the search keys from IMAP. 
-    ...             This links where help a lot: https://tools.ietf.org/html/rfc3501#section-6.4.4 , https://gist.github.com/martinrusev/6121028 , 
+    ...             These links were a lot helful: https://tools.ietf.org/html/rfc3501#section-6.4.4 , https://gist.github.com/martinrusev/6121028 , 
     ...             https://robocorp.com/docs/development-guide/email/sending-emails-with-gmail-smtp#listing-email-messages-by-criterion
 
     # Access your email with your credential that are in the vault.json specified in the devdata/env.json file
@@ -182,6 +182,27 @@ Search Methods with IMAP
     # might be a lot, so it could not open if you use Robocorp Lab, but if you Download the Log you can see it without trouble in your browser.
     
     # Note 2: The idea of this is to search anything, if it does not find something it will return an empty list, the important thing is that it does not fail in the process
+    
+    # Note 3: To access the metadata in the mails you can do this:
+
+    @{emails}  List Messages  SUBJECT "Datos"
+    FOR  ${email}  IN  @{EMAILS}
+        Log  ${email}
+        Log  ${email}[Subject]
+        Log  ${email}[From]
+        Log  ${email}[Date]
+        Log  ${email}[Delivered-To]
+        Log  ${email}[Received]
+        Log  ${email}[Has-Attachments]
+        Log  ${email}[Body]
+        Log  ${email}[Authentication-Results]
+        Log  ${email}[Message-ID]
+        Log  ${email}[MIME-Version]
+        # These commented item sometimes does not come in the metadata
+        #Log  ${email}[Precedence]
+        #Log  ${email}[Content-type]
+        #Log  ${email}[Content-Disposition]
+    END
 
 *** Task ***
 Search IMAP
