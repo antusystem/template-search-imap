@@ -5,7 +5,13 @@ Simple robot with Robocorp software to show how to use all the Search Keys from 
 
 ## Configuration
 
+First you should install RCC (https://github.com/robocorp/rcc).
+
 Configure your `devdata/env.json` to the right direction for the `vault.json` file. The credentials need to be under `emailCredential` and have a `username` and `password` items.
+
+Or, you can hard-code your email username and password in task.robot.
+
+Later in rcc or the console go to the robot directory and run: `rcc run --environment devdata/env.json`. OR, if you have you credentials hard-coded run: `rcc run`
 
 ## License
 
