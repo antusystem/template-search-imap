@@ -191,7 +191,7 @@ Search Methods with IMAP
     # Note 2: The idea of this is to search anything, if it does not find something it will return an empty list, the important thing is that it does not 
     # fail in the process
     
-    # Note 3: All the search criteria disregarding time and timezone, so you can only search by date. If you read the documentation you see that they only support
+    # Note 3: All the search criteria disregards time and timezone, so you can only search by date. If you read the documentation you see that they only support
     # <date> format not <date-time> format. The <date> format is (basically) "19-Apr-2021". The <date-time> format is (basically) "19-Apr-2021 23:59:59 +0400". 
     # You can read the link above of the rfc3501 document to learn more serching for date, date-time, and zone.
     
