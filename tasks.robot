@@ -114,6 +114,8 @@ Search Methods with IMAP
     @{emails}  List Messages  ON "19-Apr-2021"
     Log    ${emails}
     # OR <search-key1> <search-key2>. Again you need to add the respective argument from each keyword. I guess you could add more than 2 search keys
+    # For several OR you must do it like this without the parenthesis: (OR (OR (OR x x) x) x)
+    # read more here: https://stackoverflow.com/questions/12809709/imap-criteria-with-multiple-ors
     @{emails}  List Messages  OR FROM "Google " SUBJECT "Datos"
     Log    ${emails}
     # Flag
